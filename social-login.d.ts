@@ -53,7 +53,7 @@ declare module 'social-login' {
     [property in keyof Socials]: SocialConfig
   };
 
-  export default class socialLoginClass {
+  export class socialLoginClass {
     constructor(options: Options);
     use(settings: SocialsSettingsMap);
   }
