@@ -2,13 +2,13 @@ declare module 'social-login' {
   import {Application, Request} from 'express';
   import {Profile} from 'passport';
 
-  export type Socials =
+  type Socials =
       'facebook'|'twitter'|'instagram'|
       'linkedin'|'github'|'google'|'amazon'|
       'dropbox'|'foursquare'|'imgur'|'meetup'|
       'wordpress'|'tumblr';
   
-  export type AuthCallback = (
+  type AuthCallback = (
     req: Request,
     type: Socials,
     uniqueId: string,
@@ -18,7 +18,7 @@ declare module 'social-login' {
     done: Function
   ) => void;
 
-  export type Options = {
+  type Options = {
     returnRaw?: boolean;
     app?: Application;
     url?: string;
@@ -29,7 +29,7 @@ declare module 'social-login' {
     onAuth?: AuthCallback,
   };
 
-  export type SocialConfigSettings = {
+  type SocialConfigSettings = {
     clientID?: string,
     clientSecret?: string,
     authParameters?: {
@@ -37,24 +37,27 @@ declare module 'social-login' {
     },
   };
 
-  export type SocialConfigUrl = {
+  type SocialConfigUrl = {
     auth: string,
     callback: string,
     success: string,
     fail: string,
   };
 
-  export type SocialConfig = {
+  type SocialConfig = {
     settings: SocialConfigSettings,
     url: SocialConfigUrl,
   };
 
-  export type SocialsSettingsMap = {
+  type SocialsSettingsMap = {
     [key in Socials]?: SocialConfig
   };
 
-  export class socialLoginClass {
-    constructor(options: Options);
+  class SocialLogin {
     use(settings: SocialsSettingsMap);
   }
+
+  function socialLoginClass(options: Options): SocialLogin;
+  
+  export default socialLoginClass;
 }

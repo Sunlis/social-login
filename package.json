@@ -25,6 +25,7 @@
 		"url": "git://github.com/26medias/social-login.git"
 	},
 	"main": "social-login.js",
+	"types": "social-login.d.ts",
 	"engines": {
 		"node": "*"
 	},
@@ -51,5 +52,10 @@
 	"readmeFilename": "README.md",
 	"bugs": {
 		"url": "https://github.com/26medias/social-login/issues"
+	},
+	"devDependencies": {
+		"tsc": "^2.0.4",
+		"typescript": "^4.7.3"
 	}
 }
+ 

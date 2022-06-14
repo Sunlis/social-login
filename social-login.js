@@ -259,4 +259,4 @@ socialLoginClass.prototype.preparseProfileData = function(type, profile) {
 	}
 }
 
-module.exports = socialLoginClass;
+exports = socialLoginClass;
