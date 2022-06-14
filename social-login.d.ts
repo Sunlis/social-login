@@ -50,7 +50,7 @@ declare module 'social-login' {
   };
 
   export type SocialsSettingsMap = {
-    [property in keyof Socials]: SocialConfig
+    [key in Socials]?: SocialConfig
   };
 
   export class socialLoginClass {
