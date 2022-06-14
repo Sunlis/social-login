@@ -46,7 +46,6 @@
 		"passport-wordpress": "latest",
 		"passport-youtube": "latest",
 		"passport-youtube-v3": "latest",
-		"toolset": "latest",
 		"underscore": "latest"
 	},
 	"devDependencies": {},

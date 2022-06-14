@@ -17,11 +17,7 @@ var WordpressStrategy 	= require('passport-wordpress').Strategy;
 var TumblrStrategy 		= require('passport-tumblr').Strategy;
 
 /* Misc */
-var toolset 	= require('toolset');
 var _ 			= require('underscore');
-
-
-
 
 var socialLoginClass = function(options) {
 	var scope 		= this;
@@ -159,7 +155,6 @@ socialLoginClass.prototype.init = function() {
 		}, this.ttl/2);
 	};
 	caching.prototype.set = function(label, value) {
-		//Gamify.log("set()", [label, value]);
 		var expires = new Date().getTime()+this.ttl;
 		this.cache[label] = {
 			data:		value,
@@ -174,7 +169,6 @@ socialLoginClass.prototype.init = function() {
 		return null;
 	};
 	caching.prototype.clear = function(label) {
-		//Gamify.log("clear",label);
 		delete this.cache[label];
 	};
 	
@@ -182,10 +176,8 @@ socialLoginClass.prototype.init = function() {
 	
 }
 socialLoginClass.prototype.setup = function(type, settings) {
-	//toolset.log("Setting up:", type);
 	var scope = this;
 	if (!this.map[type]) {
-		toolset.error("Error!",'type "'+type+'" is not supported.');
 		return false;
 	}
 	
@@ -227,10 +219,8 @@ socialLoginClass.prototype.setup = function(type, settings) {
 		passportSetup = _.extend(passportSetup, this.specialCases[type].setup);
 	}
 	
-	//toolset.log("passportSetup", passportSetup);
 	
 	// Execute the passport strategy
-	//passport.use(new (this.map[type])(passportSetup, settings.methods.auth));
 	passport.use(new (this.map[type])(passportSetup, function (req, accessToken, refreshToken, profile, done) {
 		scope.onAuth(req, type, scope.uniqueIds[type], accessToken, refreshToken, scope.returnRaw?profile:scope.preparseProfileData(type, profile), done);
 	}));
@@ -244,7 +234,6 @@ socialLoginClass.prototype.setup = function(type, settings) {
 	this.app.get(settings.url.auth, passport.authenticate(strategyName, settings.settings.authParameters || {}));
 	
 	// Setup the callback url (/auth/:service/callback)
-	//toolset.log("strategyName", strategyName);
 	this.app.get(settings.url.callback, passport.authenticate(strategyName, {
 		successRedirect: 	settings.url.success,
 		failureRedirect: 	settings.url.fail,
@@ -253,29 +242,20 @@ socialLoginClass.prototype.setup = function(type, settings) {
 }
 
 // The response is not uniform, making it harder to manage consistent data format accross all the services.
-// 
 socialLoginClass.prototype.preparseProfileData = function(type, profile) {
-	
-	//toolset.log("Profile", profile);
-	
-	
 	var data = profile._json;
 	
 	switch (type) {
 		default:
 			return data;
-		break;
 		case "foursquare":
 		case "tumblr":
 			return data.response.user;
-		break;
 		case "imgur":
 		case "instagram":
 			return data.data;
-		break;
 		case "meetup":
 			return data.results[0];
-		break;
 	}
 }
 
