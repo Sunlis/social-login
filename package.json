@@ -48,7 +48,6 @@
 		"passport-youtube-v3": "latest",
 		"underscore": "latest"
 	},
-	"devDependencies": {},
 	"readmeFilename": "README.md",
 	"bugs": {
 		"url": "https://github.com/26medias/social-login/issues"

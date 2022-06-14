@@ -1,5 +1,5 @@
 declare module 'social-login' {
-  import {App, Request} from 'express';
+  import {Application, Request} from 'express';
   import {Profile} from 'passport';
 
   export type Socials =
@@ -20,7 +20,7 @@ declare module 'social-login' {
 
   export type Options = {
     returnRaw?: boolean;
-    app?: App;
+    app?: Application;
     url?: string;
     logout?: {
       url: string,
@@ -50,12 +50,11 @@ declare module 'social-login' {
   };
 
   export type SocialsSettingsMap = {
-    [key: Socials]: SocialConfig
+    [property in keyof Socials]: SocialConfig
   };
 
-  export class socialLoginClass {
+  export default class socialLoginClass {
     constructor(options: Options);
     use(settings: SocialsSettingsMap);
   }
-  export = socialLoginClass;
-};
+}
